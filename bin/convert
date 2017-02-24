@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+'use strict';
+
+const program = require('commander');
+const fs = require('fs');
+const packageData = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+const Foobar = require('./../src/index');
+
+let source;
+let destination;
+
+program
+  .version(packageData.version)
+  .arguments('<source> <destination>')
+  .option('-d, --data <json>', 'Template data as JSON string')
+  .action((s, d) => {
+    source = s;
+    destination = d;
+  });
+
+program.parse(process.argv);
+
+if (typeof source === 'undefined') {
+  program.outputHelp();
+
+  process.exit(0);
+}
+
+Foobar
+  .createFileFromSourceFile(source, destination, JSON.parse(program.data))
+  .then(results => {
+    console.log('Success');
+    console.log(results);
+  })
+  .catch((error) => {
+    console.log('Error');
+    console.error(error);
+  });
