@@ -2,10 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-const pdf = require('html-pdf');
 const fs = require('fs');
 const path = require('path');
-const hogan = require('hjs');
+const htmlToPdf = require('./../../index');
 
 /**
  * Default route to show a demo form.
@@ -32,18 +31,10 @@ router.post('/', (req, res, next) => {
   const data = req.body.data ? JSON.parse(req.body.data) : {};
   const options = req.body.options ? JSON.parse(req.body.options) : {};
 
-  const template = hogan.compile(source);
-
-  // Create PDF
-  pdf
-    .create(Object.keys(data).length === 0 ? source : template.render(data), options)
-    .toBuffer((err, buffer) => {
-      if (err) {
-        return next(err);
-      }
-
-      res.end(buffer, 'binary');
-    });
+  htmlToPdf
+    .createBuffer(source, data, options)
+    .then(buffer => res.end(buffer, 'binary'))
+    .catch(error => next(error));
 });
 
 module.exports = router;
