@@ -4,10 +4,19 @@ const Promise = require('bluebird');
 const fs = require('fs');
 const pdf = require('html-pdf');
 const hogan = require('hjs');
+const path = require('path');
+const upath = require('upath');
 
 class HtmlToPdf {
   createFileFromSourceFile(sourceFile, destination, data, options) {
-    return this.createFileFromSource(fs.readFileSync(sourceFile, 'utf8'), destination, data, options)
+    let dir = upath.normalize(path.resolve(
+      path.dirname(sourceFile)))
+
+    let extendedOptions = Object.assign({}, {
+      base: `file:///${dir}/`
+    }, options);
+
+    return this.createFileFromSource(fs.readFileSync(sourceFile, 'utf8'), destination, data, extendedOptions)
   }
 
   createFileFromSource(source, destination, data, options) {
