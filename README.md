@@ -55,6 +55,26 @@ $ npm start
 
 Then open your `http://localhost:3000/` within your favorite browser.
 
+### Translators
+Translators are way to make embedded dataconversions to templates.
+
+```
+data: { barcode: '[translate:type]value'}
+```
+
+#### barcode
+Translates textual content as barcode. Output is base64 encoded image string.
+
+```
+data: { barcode: '[translate:barcode]AE5C9B'}
+```
+
+Can be embedded to template HTML:
+
+```
+<img src="{{ barcode }}"/>
+```
+
 ### API
 
 

@@ -6,6 +6,7 @@ const pdf = require('html-pdf');
 const hogan = require('hjs');
 const path = require('path');
 const upath = require('upath');
+const barcodeTranslate = require('./translators/barcode')
 
 class HtmlToPdf {
   createFileFromSourceFile(sourceFile, destination, data, options) {
@@ -15,8 +16,10 @@ class HtmlToPdf {
     let extendedOptions = Object.assign({}, {
       base: `file:///${dir}/`
     }, options);
-
-    return this.createFileFromSource(fs.readFileSync(sourceFile, 'utf8'), destination, data, extendedOptions)
+    
+    return barcodeTranslate.translate(data).then(translatedData => {
+      return this.createFileFromSource(fs.readFileSync(sourceFile, 'utf8'), destination, translatedData, extendedOptions)
+    })
   }
 
   createFileFromSource(source, destination, data, options) {
