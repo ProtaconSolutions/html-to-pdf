@@ -2,7 +2,7 @@
   "name": "html-to-pdf",
   "version": "0.0.0",
   "description": "Simple tool to convert HTML content to PDF",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha ./src/**/*.test.js",
     "test-watch": "./node_modules/.bin/mocha ./src/**/*.test.js --growl --watch",
