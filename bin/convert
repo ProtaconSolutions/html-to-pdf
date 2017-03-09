@@ -3,8 +3,8 @@
 
 const program = require('commander');
 const fs = require('fs');
-const packageData = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-const Foobar = require('./../src/index');
+const packageData = JSON.parse(fs.readFileSync(__dirname + '/../package.json', 'utf8'));
+const app = require('./../src/index');
 
 let source;
 let destination;
@@ -13,6 +13,7 @@ program
   .version(packageData.version)
   .arguments('<source> <destination>')
   .option('-d, --data <json>', 'Template data as JSON string')
+  .option('-f, --file <path>', 'Template data as JSON file')
   .action((s, d) => {
     source = s;
     destination = d;
@@ -26,7 +27,11 @@ if (typeof source === 'undefined') {
   process.exit(0);
 }
 
-Foobar
+if(program.file) {
+  program.data = fs.readFileSync(program.file)
+}
+
+app
   .createFileFromSourceFile(source, destination, JSON.parse(program.data))
   .then(results => {
     console.log('Success');
