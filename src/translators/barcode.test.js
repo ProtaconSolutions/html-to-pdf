@@ -1,6 +1,5 @@
 'use strict';
 
-let assert = require('assert');
 let expect = require('chai').expect;
 
 describe('Translating data object as barcodes', () => {

@@ -28,7 +28,7 @@ if (typeof source === 'undefined') {
 }
 
 if(program.file) {
-  program.data = fs.readFileSync(program.file)
+  program.data = fs.readFileSync(program.file, 'utf8').replace(/^\uFEFF/, '');
 }
 
 app
