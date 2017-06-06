@@ -21,9 +21,8 @@ program
 
 program.parse(process.argv);
 
-if (typeof source === 'undefined') {
+if (typeof source === 'undefined' || typeof destination === 'undefined') {
   program.outputHelp();
-
   process.exit(0);
 }
 

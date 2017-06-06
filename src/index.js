@@ -16,39 +16,30 @@ class HtmlToPdf {
     let extendedOptions = Object.assign({}, {
       base: `file:///${dir}/`
     }, options);
-    
-    return barcodeTranslate.translate(data).then(translatedData => {
-      return this.createFileFromSource(fs.readFileSync(sourceFile, 'utf8'), destination, translatedData, extendedOptions)
-    })
+
+    return this.createFileFromSource(fs.readFileSync(sourceFile, 'utf8'), destination, data, extendedOptions);
   }
 
   createFileFromSource(source, destination, data, options) {
     return new Promise((resolve, reject) => {
-      HtmlToPdf
-        .createPdf(source, data, options)
-        .toFile(destination, (error, result) => {
-          error ? reject(result) : resolve(result);
-        });
-    });
-  }
-
-  createStream(source, data, options) {
-    return new Promise((resolve, reject) => {
-      HtmlToPdf
-        .createPdf(source, data, options)
-        .toStream((error, result) => {
-          error ? reject(result) : resolve(result);
-        });
+      barcodeTranslate.translate(data).then(translatedData =>
+        HtmlToPdf
+          .createPdf(source, translatedData, options)
+          .toFile(destination, (error, result) => {
+            error ? reject(result) : resolve(result);
+          })
+        );
     });
   }
 
   createBuffer(source, data, options) {
     return new Promise((resolve, reject) => {
-      HtmlToPdf
-        .createPdf(source, data, options)
-        .toBuffer((error, result) => {
-          error ? reject(result) : resolve(result);
-        });
+      barcodeTranslate.translate(data).then(translatedData =>
+        HtmlToPdf
+          .createPdf(source, translatedData, options)
+          .toBuffer((error, result) => {
+            error ? reject(result) : resolve(result);
+          }))
     });
   }
 
