@@ -6,12 +6,12 @@ const pdf = require('html-pdf');
 const hogan = require('hjs');
 const path = require('path');
 const upath = require('upath');
-const barcodeTranslate = require('./translators/barcode')
+const barcodeTranslate = require('./translators/barcode');
+const qrcodeTranslate = require('./translators/qrcode');
 
 class HtmlToPdf {
   createFileFromSourceFile(sourceFile, destination, data, options) {
-    let dir = upath.normalize(path.resolve(
-      path.dirname(sourceFile)))
+    let dir = upath.normalize(path.resolve(path.dirname(sourceFile)));
 
     let extendedOptions = Object.assign({}, {
       base: `file:///${dir}/`
@@ -22,24 +22,45 @@ class HtmlToPdf {
 
   createFileFromSource(source, destination, data, options) {
     return new Promise((resolve, reject) => {
-      barcodeTranslate.translate(data).then(translatedData =>
-        HtmlToPdf
-          .createPdf(source, translatedData, options)
-          .toFile(destination, (error, result) => {
-            error ? reject(result) : resolve(result);
-          })
+      Promise
+        .all([
+          barcodeTranslate.translate(data),
+          qrcodeTranslate.translate(data)
+        ])
+        .then(
+          () => {
+            HtmlToPdf
+              .createPdf(source, data, options)
+              .toFile(destination, (error, result) => {
+                error ? reject(error) : resolve(result);
+              });
+          },
+          (error) => {
+            reject(error);
+          }
         );
     });
   }
 
   createBuffer(source, data, options) {
     return new Promise((resolve, reject) => {
-      barcodeTranslate.translate(data).then(translatedData =>
-        HtmlToPdf
-          .createPdf(source, translatedData, options)
-          .toBuffer((error, result) => {
-            error ? reject(result) : resolve(result);
-          }))
+      Promise
+        .all([
+          barcodeTranslate.translate(data),
+          qrcodeTranslate.translate(data)
+        ])
+        .then(
+          () => {
+            HtmlToPdf
+              .createPdf(source, data, options)
+              .toBuffer((error, result) => {
+                error ? reject(error) : resolve(result);
+              });
+          },
+          (error) => {
+            reject(error);
+          }
+        );
     });
   }
 
