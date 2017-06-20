@@ -2,6 +2,7 @@
   "title": "Protacon Solutions",
   "content": "Lorem ipsum dolor...",
   "barcode": "[translate:barcode]https://www.protacon.com/",
+  "barcode2": "[translate:barcode:{\"includetext\":false}]https://www.protacon.com/",
   "qrcode": "[translate:qrcode]https://www.protacon.com/",
   "pages": [
     {
