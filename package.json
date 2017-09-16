@@ -1,5 +1,5 @@
 {
-  "name": "html-to-pdf",
+  "name": "@protacon/html-to-pdf",
   "version": "0.0.0",
   "description": "Simple tool to convert HTML content to PDF",
   "main": "src/index.js",
@@ -30,5 +30,20 @@
     "qrcode": "0.9.0",
     "serve-favicon": "2.4.4",
     "upath": "1.0.0"
-  }
+  },
+  "devDependencies": {
+    "mocha": "3.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/protacon/html-to-pdf.git"
+  },
+  "keywords": [
+    "HTML",
+    "PDF"
+  ],
+  "bugs": {
+    "url": "https://github.com/protacon/html-to-pdf/issues"
+  },
+  "homepage": "https://github.com/protacon/html-to-pdf#readme"
 }
