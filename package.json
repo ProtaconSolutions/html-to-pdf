@@ -1,6 +1,6 @@
 {
   "name": "@protacon/html-to-pdf",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple tool to convert HTML content to PDF",
   "main": "src/index.js",
   "scripts": {
