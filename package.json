@@ -1,6 +1,6 @@
 {
   "name": "@protacon/html-to-pdf",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "Simple tool to convert HTML content to PDF",
   "main": "src/index.js",
   "scripts": {
@@ -12,27 +12,25 @@
   "author": "Protacon Solutions",
   "license": "MIT",
   "dependencies": {
-    "bluebird": "3.5.0",
-    "body-parser": "1.18.1",
-    "bwip-js": "1.5.4",
+    "bluebird": "3.5.1",
+    "body-parser": "1.18.3",
+    "bwip-js": "1.6.3",
     "chai": "4.1.2",
-    "chalk": "2.1.0",
-    "cli-spinner": "0.2.6",
-    "commander": "2.11.0",
+    "chalk": "2.4.1",
+    "cli-spinner": "0.2.8",
+    "commander": "2.15.1",
     "cookie-parser": "1.4.3",
-    "debug": "3.0.1",
-    "express": "4.15.4",
+    "express": "4.16.3",
     "hjs": "0.0.6",
-    "html-pdf": "2.1.0",
-    "mocha": "3.5.3",
-    "morgan": "1.8.2",
-    "node-sass-middleware": "0.11.0",
-    "qrcode": "0.9.0",
-    "serve-favicon": "2.4.4",
-    "upath": "1.0.0"
+    "html-pdf": "2.2.0",
+    "morgan": "1.9.0",
+    "qrcode": "1.2.0",
+    "serve-favicon": "2.5.0",
+    "upath": "1.1.0"
   },
   "devDependencies": {
-    "mocha": "3.5.3"
+    "mocha": "5.2.0",
+    "debug": "3.1.0"
   },
   "repository": {
     "type": "git",
